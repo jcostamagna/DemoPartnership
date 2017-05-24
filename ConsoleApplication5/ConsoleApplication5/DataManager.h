@@ -1,5 +1,6 @@
 #pragma once
 #include <atomic>
+#include <time.h>
 #include "Joystick.h"
 
 class DataManager
@@ -10,11 +11,15 @@ private:
 	DataManager(const DataManager& object);
 	DataManager& operator=(const DataManager& object);
 	Joystick joy;
+	time_t timer;
 public:
-	DataManager(int id) : idSession(id) {
+	DataManager(int id) {
+		this->idSession = id;
 		timeToQuit = false;
 	}
-	void startCollectingData();
+	void startCollectingData(int id);
+	void initializeData();
+	void saveData(int id, DIJOYSTATE* js);
 	void join();
 	~DataManager();
 };

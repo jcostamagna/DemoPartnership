@@ -16,7 +16,7 @@ private:
 	Session& operator=(const Session& object);
 public:
 	Session(int id) : id(id), dataManager(DataManager(id)) {}
-	void startCollectingData();
+	void startCollectingData(int id);
 	void endCollectingData();
 	void start();
 	void end();

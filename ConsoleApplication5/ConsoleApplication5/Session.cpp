@@ -7,10 +7,11 @@
 
 
 
-void Session::startCollectingData()
+void Session::startCollectingData(int idS)
 {
+	std::cout << "SESION  ID" << idS << std::endl;
 	//threadData = std::thread (&DataManager::startCollectingData, this->dataManager);
-	this->dataManager.startCollectingData();
+	this->dataManager.startCollectingData(idS);
 }
 
 void Session::endCollectingData()
@@ -23,7 +24,7 @@ void Session::endCollectingData()
 void Session::start()
 {
 	startDataBase();
-	threadData = std::thread(&Session::startCollectingData, this);
+	threadData = std::thread(&Session::startCollectingData, this, this->id);
 	//startCollectingData();
 	std::cout << "The sesion " << id << " starts fine!" << std::endl;
 }
