@@ -17,6 +17,7 @@ void Session::endCollectingData()
 {
 	this->dataManager.join();
 	threadData.join();
+
 }
 
 void Session::start()

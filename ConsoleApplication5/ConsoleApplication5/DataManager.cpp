@@ -8,6 +8,7 @@ void DataManager::startCollectingData()
 {
 	while (this->timeToQuit.load()) {
 		std::cout << "Estoy corriendo" << std::endl;
+		joy.start();
 		Sleep(100);
 	}
 	std::cout << "TERMINE" << std::endl;

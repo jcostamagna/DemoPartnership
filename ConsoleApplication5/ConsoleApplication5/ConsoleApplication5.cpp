@@ -6,7 +6,6 @@
 #include <string>
 #include "Session.h"
 #include "PostgreSQL.h"
-#include "ConsoleApplication5.h"
 
 
 int getLastId() {
@@ -17,6 +16,8 @@ int getLastId() {
 	int id = std::stoi(db.getValue(0, 0));
 	return ++id;
 }
+
+
 
 int main()
 {
@@ -41,6 +42,7 @@ int main()
 			std::cin >> input; 
 		}
 	}
+
     return 0;
 }
 
