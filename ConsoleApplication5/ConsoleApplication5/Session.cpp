@@ -2,9 +2,11 @@
 #include "Session.h"
 #include <iostream>
 #include <sstream>
+#include <iomanip>
 #include <libpq-fe.h>
 #include <thread>
-
+#include <sstream>
+#include <Windows.h>
 
 
 void Session::startCollectingData(int idS)
@@ -58,7 +60,7 @@ void Session::startDataBase()
 
 
 
-	PGresult* query = PQexec(dbconn, "CREATE TABLE IF NOT EXISTS Session(Id INTEGER PRIMARY KEY, Start INT, Finish INT)");
+	PGresult* query = PQexec(dbconn, "CREATE TABLE IF NOT EXISTS Session(Id INTEGER PRIMARY KEY, Start timestamp, Finish timestamp)");
 
 	if (PQresultStatus(query) != PGRES_COMMAND_OK) {
 		std::cerr << PQerrorMessage(dbconn);
@@ -70,7 +72,10 @@ void Session::startDataBase()
 	PQclear(query);
 	std::stringstream queryString;
 	time(&this->timer);
-	queryString << "INSERT INTO Session VALUES(" << this->id << "," << this->timer << ",NULL)";
+
+	SYSTEMTIME time;
+	GetSystemTime(&time);
+	queryString << "INSERT INTO Session VALUES(" << this->id << ",to_timestamp(" << this->timer << std::setw(3) << std::setfill('0') << time.wMilliseconds << "::double precision / 1000)" << ",NULL)";
 
 	query = PQexec(dbconn, queryString.str().c_str());
 
@@ -98,7 +103,10 @@ void Session::endDataBase()
 
 	std::stringstream queryString;
 	time(&this->timer);
-	queryString << "UPDATE Session SET Finish = " << this->timer << " WHERE Id = " << this->id;
+	SYSTEMTIME time;
+	GetSystemTime(&time);
+
+	queryString << "UPDATE Session SET Finish = to_timestamp(" << this->timer << std::setw(3) << std::setfill('0') << time.wMilliseconds << "::double precision / 1000)" << " WHERE Id = " << this->id;
 	query = PQexec(conn, queryString.str().c_str());
 
 	PQfinish(conn);

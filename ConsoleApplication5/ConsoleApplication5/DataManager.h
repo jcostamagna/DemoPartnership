@@ -1,6 +1,7 @@
 #pragma once
 #include <atomic>
 #include <time.h>
+#include <vector>
 #include "Joystick.h"
 
 class DataManager
@@ -19,7 +20,7 @@ public:
 	}
 	void startCollectingData(int id);
 	void initializeData();
-	void saveData(int id, DIJOYSTATE* js);
+	void saveData(int id, DIJOYSTATE* js, std::vector<double>& vrData);
 	void join();
 	~DataManager();
 };

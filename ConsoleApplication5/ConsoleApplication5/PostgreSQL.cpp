@@ -51,7 +51,7 @@ bool PostgreSQL::doQuerySelect(const char * queryString)
 
 void PostgreSQL::endQueryError()
 {
-	std::cerr << "ERROR: " << PQerrorMessage(this->dbconn) << std::endl;
+	//std::cerr << "ERROR: " << PQerrorMessage(this->dbconn) << std::endl;
 	PQclear(this->query);
 	PQfinish(dbconn);
 	this->finish = true;

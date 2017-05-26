@@ -6,15 +6,16 @@
 #include <chrono>
 #include <string>
 #include "PostgreSQL.h"
+#include "HTCViveVR.h"
 
 void DataManager::startCollectingData(int id)
 {
-	this->idSession = id;
+	LighthouseTracking vr;
 	initializeData();
 	joy.start();
 	while (this->timeToQuit.load()) {
 		//std::cout << "SESION:" << id << std::endl;
-		saveData(id, joy.getJoy());
+		saveData(id, joy.getJoy(), vr.ParseTrackingFrame());
 		Sleep(100);
 	}
 	joy.close();
@@ -25,13 +26,18 @@ void DataManager::initializeData()
 {
 	PostgreSQL db;
 	if (!db.connect()) { return;}
-	bool succes = db.doQuery("CREATE TABLE IF NOT EXISTS Data(time timestamp, IDSESSION INTEGER REFERENCES Session(Id), DeviceType VARCHAR(40), STEERING INT, ACCELERATOR INT, BRAKE INT"\
+	bool succes = db.doQuery("CREATE TABLE IF NOT EXISTS DataSteering(time timestamp, IDSESSION INTEGER REFERENCES Session(Id), STEERING INT, ACCELERATOR INT, BRAKE INT"\
 		", SLIDER1 INT, PRIMARY KEY (time, IDSESSION) );");
+
+	if (!succes) { return; }
+
+	succes = db.doQuery("CREATE TABLE IF NOT EXISTS DataVr(time timestamp, IDSESSION INTEGER REFERENCES Session(Id),  PositionX FLOAT, PositionY FLOAT, PositionZ FLOAT"\
+		", RotationX FLOAT, RotationY FLOAT, RotationZ FLOAT, PRIMARY KEY (time, IDSESSION) );");
 
 	if (!succes) { return; }
 }
 
-void DataManager::saveData(int id, DIJOYSTATE * js)
+void DataManager::saveData(int id, DIJOYSTATE * js, std::vector<double>& vrData)
 {
 	PostgreSQL db;
 	db.connect();
@@ -42,11 +48,17 @@ void DataManager::saveData(int id, DIJOYSTATE * js)
 	GetSystemTime(&time);
 
 
-	queryString << "INSERT INTO Data VALUES( to_timestamp(" << this->timer << time.wMilliseconds << "::double precision / 1000)," << id << ", " << "'Steering'" << 
+	queryString << "INSERT INTO DataSteering VALUES( to_timestamp(" << this->timer << std::setw(3) << std::setfill('0') << time.wMilliseconds << "::double precision / 1000)," << id <<
 		"," << js->lX << "," << js->lY << "," << js->rglSlider[0] << "," << js->lRz <<")";
 	db.doQuery(queryString.str());
-	//std::cout << "X: " << js->lX << " Y: " << js->lY << " Z: " << js->lZ << " " << js->rglSlider[0] << " " << js->rglSlider[1]
-		//<< " " << js->lRx << " " << js->lRy << " " << js->lRz << std::endl;
+
+	queryString.str("");
+
+	queryString << "INSERT INTO DataVr VALUES( to_timestamp(" << this->timer << std::setw(3) << std::setfill('0') << time.wMilliseconds << "::double precision / 1000)," << id <<
+		"," << vrData.at(0) << "," << vrData.at(1) << "," << vrData.at(2) << "," << vrData.at(3) << "," << vrData.at(4) << "," << vrData.at(5) << ")";
+	db.doQuery(queryString.str());
+
+
 }
 
 void DataManager::join()
