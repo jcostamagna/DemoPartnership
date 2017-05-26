@@ -17,7 +17,7 @@ class Joystick : public Device
 
 	// ustawienia
 	DIDEVCAPS capabilities;
-
+	DIJOYSTATE js;
 
 
 
@@ -26,6 +26,7 @@ public:
 	HRESULT poll(DIJOYSTATE *js);
 	void GetDesktopResolution(int & horizontal, int & vertical);
 	void close();
+	DIJOYSTATE* getJoy();
 	std::list<int> getData() {
 		std::list<int> lista;
 		return lista;

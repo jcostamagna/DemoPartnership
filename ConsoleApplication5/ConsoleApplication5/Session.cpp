@@ -7,10 +7,11 @@
 
 
 
-void Session::startCollectingData()
+void Session::startCollectingData(int idS)
 {
+	//std::cout << "SESION  ID" << idS << std::endl;
 	//threadData = std::thread (&DataManager::startCollectingData, this->dataManager);
-	this->dataManager.startCollectingData();
+	this->dataManager.startCollectingData(idS);
 }
 
 void Session::endCollectingData()
@@ -23,16 +24,20 @@ void Session::endCollectingData()
 void Session::start()
 {
 	startDataBase();
-	threadData = std::thread(&Session::startCollectingData, this);
+	threadData = std::thread(&Session::startCollectingData, this, this->id);
 	//startCollectingData();
+	std::cout << std::endl;
 	std::cout << "The sesion " << id << " starts fine!" << std::endl;
+	std::cout << std::endl;
 }
 
 void Session::end()
 {
 	endCollectingData();
 	endDataBase();
+	std::cout << std::endl;
 	std::cout << "The sesion " << id << " ends!" << std::endl;
+	std::cout << std::endl;
 }
 
 
@@ -56,7 +61,7 @@ void Session::startDataBase()
 	PGresult* query = PQexec(dbconn, "CREATE TABLE IF NOT EXISTS Session(Id INTEGER PRIMARY KEY, Start INT, Finish INT)");
 
 	if (PQresultStatus(query) != PGRES_COMMAND_OK) {
-		std::cout << PQerrorMessage(dbconn);
+		std::cerr << PQerrorMessage(dbconn);
 		PQclear(query);
 		PQfinish(dbconn);
 		return;
@@ -70,7 +75,7 @@ void Session::startDataBase()
 	query = PQexec(dbconn, queryString.str().c_str());
 
 	if (PQresultStatus(query) != PGRES_COMMAND_OK) {
-		std::cout << PQerrorMessage(dbconn);
+		std::cerr << PQerrorMessage(dbconn);
 		PQclear(query);
 		PQfinish(dbconn);
 		return;

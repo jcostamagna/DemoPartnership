@@ -79,6 +79,8 @@ void Joystick::close()
 	}
 }
 
+
+
 BOOL CALLBACK
 enumCallback(const DIDEVICEINSTANCE* instance, VOID* context)
 {
@@ -114,7 +116,7 @@ enumAxesCallback(const DIDEVICEOBJECTINSTANCE* instance, VOID* context)
 
 int Joystick::start()
 {
-	DIJOYSTATE js;                                        // struktura stanu joysticka
+                                       // struktura stanu joysticka
 
 														  // Create a DirectInput device
 	if (FAILED(hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION,
@@ -165,7 +167,7 @@ int Joystick::start()
 	{
 		return hr;
 	}
-	int i = 0;
+	/*int i = 0;
 	while (i < MAX_PATH && info.tszProductName[i] != 0)
 	{
 		std::cout << (char)info.tszProductName[i];
@@ -174,8 +176,8 @@ int Joystick::start()
 	std::cout << std::endl;
 	//system("pause");
 
-	i = 0;
 
+	
 	while (i < 100)
 	{
 		poll(&js);
@@ -185,18 +187,26 @@ int Joystick::start()
 			if (js.rgbButtons[i] != 0) std::cout << "Pressed " << i + 1 << std::endl;
 		}
 
-		std::cout << "Change" << std::endl;
 		std::cout << "X: " << js.lX << " Y: " << js.lY << " Z: " << js.lZ << " " << js.rglSlider[0] << " " << js.rglSlider[1]
 			<< " " << js.lRx << " " << js.lRy << " " << js.lRz << std::endl;
-
-
-		Sleep(50);
-		//std::cout << std::endl;
-		//system("cls");
-		i++;
 	}
+	*/
+	return 0;
+}
 
-	close();
 
-	//system("pause");
+DIJOYSTATE * Joystick::getJoy()
+{
+
+	poll(&js);
+	/*for (int i= 0; i < 100; ++i)
+	{
+		poll(&js);
+
+		for (int i = 0; i < 32; i++)
+		{
+			if (js.rgbButtons[i] != 0) std::cout << "Pressed " << i + 1 << std::endl;
+		}
+	*/
+	return &js;
 }

@@ -1,12 +1,4 @@
-﻿  stdafx.cpp
-  Session.cpp
-  PostgreSQL.cpp
-  Joystick.cpp
-  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-  DataManager.cpp
-  ConsoleApplication5.cpp
-  Generating Code...
-Joystick.obj : error LNK2019: unresolved external symbol DirectInput8Create referenced in function "public: int __cdecl Joystick::start(void)" (?start@Joystick@@QEAAHXZ)
+﻿Joystick.obj : error LNK2019: unresolved external symbol DirectInput8Create referenced in function "public: int __cdecl Joystick::start(void)" (?start@Joystick@@QEAAHXZ)
 Joystick.obj : error LNK2001: unresolved external symbol IID_IDirectInput8W
 Joystick.obj : error LNK2001: unresolved external symbol c_dfDIJoystick
 PostgreSQL.obj : error LNK2019: unresolved external symbol PQconnectdb referenced in function "public: bool __cdecl PostgreSQL::connect(void)" (?connect@PostgreSQL@@QEAA_NXZ)
