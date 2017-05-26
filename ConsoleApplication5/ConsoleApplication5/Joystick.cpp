@@ -167,7 +167,7 @@ int Joystick::start()
 	{
 		return hr;
 	}
-	int i = 0;
+	/*int i = 0;
 	while (i < MAX_PATH && info.tszProductName[i] != 0)
 	{
 		std::cout << (char)info.tszProductName[i];
@@ -177,7 +177,7 @@ int Joystick::start()
 	//system("pause");
 
 
-	/*
+	
 	while (i < 100)
 	{
 		poll(&js);
@@ -199,7 +199,7 @@ DIJOYSTATE * Joystick::getJoy()
 {
 
 	poll(&js);
-	for (int i= 0; i < 100; ++i)
+	/*for (int i= 0; i < 100; ++i)
 	{
 		poll(&js);
 
@@ -207,9 +207,6 @@ DIJOYSTATE * Joystick::getJoy()
 		{
 			if (js.rgbButtons[i] != 0) std::cout << "Pressed " << i + 1 << std::endl;
 		}
-
-		//std::cout << "X: " << js.lX << " Y: " << js.lY << " Z: " << js.lZ << " " << js.rglSlider[0] << " " << js.rglSlider[1]
-			//<< " " << js.lRx << " " << js.lRy << " " << js.lRz << std::endl;
-	}
+	*/
 	return &js;
 }
