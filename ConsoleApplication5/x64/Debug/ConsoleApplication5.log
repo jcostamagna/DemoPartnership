@@ -1,0 +1,24 @@
+﻿Joystick.obj : error LNK2019: unresolved external symbol DirectInput8Create referenced in function "public: int __cdecl Joystick::start(void)" (?start@Joystick@@QEAAHXZ)
+Joystick.obj : error LNK2001: unresolved external symbol IID_IDirectInput8W
+Joystick.obj : error LNK2001: unresolved external symbol c_dfDIJoystick
+PostgreSQL.obj : error LNK2019: unresolved external symbol PQconnectdb referenced in function "public: bool __cdecl PostgreSQL::connect(void)" (?connect@PostgreSQL@@QEAA_NXZ)
+Session.obj : error LNK2001: unresolved external symbol PQconnectdb
+PostgreSQL.obj : error LNK2019: unresolved external symbol PQfinish referenced in function "public: __cdecl PostgreSQL::~PostgreSQL(void)" (??1PostgreSQL@@QEAA@XZ)
+Session.obj : error LNK2001: unresolved external symbol PQfinish
+PostgreSQL.obj : error LNK2019: unresolved external symbol PQstatus referenced in function "public: bool __cdecl PostgreSQL::connect(void)" (?connect@PostgreSQL@@QEAA_NXZ)
+Session.obj : error LNK2001: unresolved external symbol PQstatus
+PostgreSQL.obj : error LNK2019: unresolved external symbol PQerrorMessage referenced in function "private: void __cdecl PostgreSQL::endQueryError(void)" (?endQueryError@PostgreSQL@@AEAAXXZ)
+Session.obj : error LNK2001: unresolved external symbol PQerrorMessage
+PostgreSQL.obj : error LNK2019: unresolved external symbol PQexec referenced in function "public: bool __cdecl PostgreSQL::doQuery(char const *)" (?doQuery@PostgreSQL@@QEAA_NPEBD@Z)
+Session.obj : error LNK2001: unresolved external symbol PQexec
+PostgreSQL.obj : error LNK2019: unresolved external symbol PQresultStatus referenced in function "public: bool __cdecl PostgreSQL::doQuery(char const *)" (?doQuery@PostgreSQL@@QEAA_NPEBD@Z)
+Session.obj : error LNK2001: unresolved external symbol PQresultStatus
+PostgreSQL.obj : error LNK2019: unresolved external symbol PQgetvalue referenced in function "public: class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl PostgreSQL::getValue(int,int)" (?getValue@PostgreSQL@@QEAA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@HH@Z)
+PostgreSQL.obj : error LNK2019: unresolved external symbol PQclear referenced in function "public: bool __cdecl PostgreSQL::doQuery(char const *)" (?doQuery@PostgreSQL@@QEAA_NPEBD@Z)
+Session.obj : error LNK2001: unresolved external symbol PQclear
+C:\Program Files (x86)\PostgreSQL\9.6\lib\libpq.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\d3d9.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\dxguid.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\d3dx9.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\dinput8.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+C:\Users\admin\documents\visual studio 2017\Projects\ConsoleApplication5\x64\Debug\ConsoleApplication5.exe : fatal error LNK1120: 11 unresolved externals
